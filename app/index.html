@@ -1,0 +1,141 @@
+<!doctype html>
+<html class="no-js" ng-app="playlistApp">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <script data-require="angular.js@1.4.6" data-semver="1.4.6" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <script data-require="firebase@*" data-semver="2.2.9" src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+    <script data-require="angularfire@*" data-semver="1.1.1" src="//cdn.firebase.com/libs/angularfire/1.1.1/angularfire.min.js"></script>
+    
+
+    <!-- endbuild -->
+  </head>
+  <body ng-controller="MainCtrl">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+
+<section class="slider" id="features" ng:controller="MainCtrl">
+    <div class="container">
+        <div class="inner-page">
+            <h1 class="page-headline large text-center">Crea tus listas !</h1>
+            <div id="input">
+                
+                <form role="form" ng-submit="addLista()">
+
+
+            <select class="form-control col-md-2" id="select" ng-model="select"  >
+              <option value="{{$index}}" ng-repeat="lista in listas" >{{lista.nombre}}</option>
+               
+            </select>
+                <br><br><br>
+    <button class="btn btn-danger col-md-2" type="button" style="margin-right:20px" id="btn_eliminar"  ng-click="removeLista()"> Eliminar</button>
+            <div class="input-group col-md-3"  >
+                  <input type="text" class="form-control" placeholder="Lista" id="nom_lista" ng-model="listaInput">
+                  <span class="input-group-btn">
+                    <input type="submit" id="btn_agregar" class="form-control" value="Agregar"></input>
+                  </span>
+            </div>
+                </form>
+            </div>
+          </div>
+        
+        
+        </div>
+        <div class="row inner-page" align="center">
+        
+            <div class="col-md-5 " id="lista_canciones">
+                <h2>Canciones</h2>
+                <ul class="list-group" style="overflow:scroll; height:500px">
+                    <li class="list-group-item active" style="height:100px" ng-repeat="cancion in canciones">
+                        <img ng-src="{{cancion.imagen}}" height="70" width="20" class="col-md-3"></img>
+                    <div class="col-md-6">
+                        <h4 >{{cancion.nombre}} </h4>
+                        <h5>{{cancion.artista}} </h5>
+                    </div>  
+                
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" ng-click="addCancion($index)">></button>
+                    </span>
+                </li>
+                     
+
+                </ul>  
+
+
+            </div>
+        
+        <div class="col-md-2" style="vertical-align:middle;" align="center">
+
+        </div>
+            
+            
+            <div class="col-md-5 " id="canciones_lista">      
+                            <h2>Canciones Lista</h2>
+                <ul class="list-group" style="overflow:scroll; height:500px">
+                    <li class="list-group-item active" style="height:100px" ng-repeat="cancion in listas[select].canciones">
+                        <img ng-src="{{cancion.imagen}}" height="70" width="20" class="col-md-3"></img>
+                    <div class="col-md-6">
+                        <h4 > {{cancion.nombre}}</h4>
+                        <h5>{{cancion.artista}} </h5>
+                    </div>  
+                
+                <span class="input-group-btn">
+                        <button class="btn btn-danger" ng-click="removeCancion($index)"><</button>
+                    </span>
+                    </li>
+                   
+
+                </ul>  
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
